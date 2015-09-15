@@ -1,0 +1,10 @@
+<% url_params = api[:api_url].split('/').select { |param| param =~ /\:/ }.map { |param| param.gsub(/\:/, '') } %>
+<% r_url = root_url[0..root_url.length - 2] %>
+<form action="#" id="api-params" method="<%= api[:http_method] %>" data-action-template="<%= r_url + api[:api_url] %>" data-remote="true">
+  <%= render(:partial => "param_inputs", :locals => {:param => params, :url_params => url_params}) %>
+  <br>
+  <button id="api-params">Make Request!</button>
+  <pre id='data-stuff' class='ruby'>
+    <code></code>
+  </pre>
+</form>

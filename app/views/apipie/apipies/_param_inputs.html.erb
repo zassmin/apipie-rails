@@ -1,0 +1,19 @@
+<% level ||= 0 %>
+<% col = 255 - level * 5 %>
+<% param.each do |p| %>
+  <div style='background-color:rgb(<%= "#{col},#{col},#{col}" %>);'>
+    <% if !p[:show] %>
+      <%= render(:partial => "param_inputs", :locals => {:level => level + 1, :param => p[:params], :url_params => []}) unless p[:params].blank? %>
+      <% next %>
+    <% end %>
+    <label><h3><%= p[:name] %></h3></label>
+    <%= p[:description].html_safe %>
+    <p>allow nil: <%= p[:allow_nil] %></p>
+    <p><%= p[:expected_type] %></p>
+    <% if p[:expected_type] != 'hash' %>
+      <% input_name = url_params.include?(p[:full_name]) ? "url_params[#{p[:full_name]}]" : p[:full_name] %>
+      <input type="text" name="<%= input_name %>">
+    <% end %>
+    <%= render(:partial => "param_inputs", :locals => {:level => level + 1, :param => p[:params], :url_params => []}) unless p[:params].blank? %>
+  </div>
+<% end %>

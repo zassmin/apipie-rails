@@ -1,3 +1,18 @@
+<% method[:apis].each do |api| %>
+  <h2>
+    <a href='#description-<%= method[:name] %>'
+     class='accordion-toggle'
+     data-toggle='collapse'
+     data-parent='#accordion'>
+      Try in the console!
+    </a>
+  </h2>
+
+  <div id='description-<%= method[:name] %>' class='collapse accordion-body'>
+    <%= render(:partial => "console", :locals => {:method => method, :h_level => 3}) %>
+  </div>
+<% end %>
+
 <%= raw method[:full_description] %>
 
 <% unless method[:formats].blank? %>

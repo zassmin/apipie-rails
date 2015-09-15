@@ -1,0 +1,11 @@
+<% r_url = root_url[0..root_url.length - 2] %>
+<% method[:apis].each do |a| %>
+  <% if method[:params].blank? %>
+    <%= link_to "#{a[:http_method]} #{a[:api_url]}", (r_url + a[:api_url]), method: a[:http_method].downcase, id: 'api-link' %>
+    <pre id='data-stuff' class='ruby'>
+      <code></code>
+    </pre>
+  <% else %>
+    <%= render(:partial => "params_form", :locals => {:params => method[:params], :api => a }) %>
+  <% end %>
+<% end %>
